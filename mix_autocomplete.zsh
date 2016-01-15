@@ -1,3 +1,4 @@
+
 #!/usr/bin/env zsh
 
 if [[ ! -o interactive ]]; then
@@ -12,8 +13,17 @@ function _mix() {
 
   local mix_md5
   local completions
-  local current_mix_md5=`md5 -q mix.exs`
+  local current_mix_md5
   local recalculate=true
+
+  if type "md5" >/dev/null; then
+    current_mix_md5=`md5 -q mix.exs`
+  elif type "md5sum" >/dev/null; then
+    current_mix_md5=`md5sum mix.exs | awk '{ print $1 }'`
+  else
+    # no either md5 or md5sum
+    return 1
+  fi
 
   if _retrieve_cache mix; then
     if [[ $mix_md5 == $current_mix_md5 ]]; then
