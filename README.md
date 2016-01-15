@@ -22,7 +22,7 @@ git submodule add https://github.com/dalexj/mix_autocomplete.git mix_autocomplet
 ln -s your/dotfiles/mix_autocomplete/mix_autocomplete.sh ~/.mix-autocomplete.sh
 ```
 
-and stay up to date with `git submodule update mix_autocomplete/`
+and stay up to date with `cd mix_autocomplete && git pull`
 
 # Contribute
 
