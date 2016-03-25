@@ -37,4 +37,4 @@ _mix() {
   COMPREPLY=( $(compgen -W "$_mix_task_list" $cur) )
   return 0
 }
-complete -F _mix mix
+complete -o bashdefault -o default -o nospace -F _mix mix
