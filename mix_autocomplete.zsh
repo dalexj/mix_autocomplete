@@ -47,9 +47,11 @@ function _mix() {
           Mix.Task.load_all
             |> Enum.map(&(Mix.Task.task_name &1))
             |> Enum.sort
+            |> (&([ "__start__" | &1])).()
+            |> (&(&1 ++ ["__end__"])).()
             |> Enum.join(" ")
             |> IO.puts
-        ')"
+        ' | grep -Po '(?<=(__start__)).*(?=__end__)')"
 
     _store_cache mix mix_md5 completions
   fi
