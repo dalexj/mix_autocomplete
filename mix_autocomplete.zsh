@@ -41,16 +41,16 @@ function _mix() {
       # show a message explaining why we can't show completions?
       return 1
     fi
-
     completions="$(
         mix run -e '
           Mix.Task.load_all
             |> Enum.map(&(Mix.Task.task_name &1))
             |> Enum.sort
+            |> (&([ "__start__" | &1])).()
+            |> (&(&1 ++ ["__end__"])).()
             |> Enum.join(" ")
             |> IO.puts
-        ')"
-
+        ' | awk -v FS='(__start__|__end__)' '{print $2}')"
     _store_cache mix mix_md5 completions
   fi
 
