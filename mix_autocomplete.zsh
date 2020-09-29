@@ -44,6 +44,7 @@ function _mix() {
 
     completions="$(
         mix run -e '
+          IO.puts("[abcdef]")
           Mix.Task.load_all
             |> Enum.map(&(Mix.Task.task_name &1))
             |> Enum.sort
@@ -51,8 +52,7 @@ function _mix() {
             |> (&(&1 ++ ["__end__"])).()
             |> Enum.join(" ")
             |> IO.puts
-        ' | grep -Po '(?<=(__start__)).*(?=__end__)')"
-
+        ' | awk -v FS='(__start__|__end__)' '{print $2}')"
     _store_cache mix mix_md5 completions
   fi
 
