@@ -41,10 +41,8 @@ function _mix() {
       # show a message explaining why we can't show completions?
       return 1
     fi
-
     completions="$(
         mix run -e '
-          IO.puts("[abcdef]")
           Mix.Task.load_all
             |> Enum.map(&(Mix.Task.task_name &1))
             |> Enum.sort
